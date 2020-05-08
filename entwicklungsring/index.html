@@ -29,28 +29,19 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="js/proj4.js"></script>
-        <script src="js/proj4leaflet.js"></script>
         <script src="js/leaflet-search.js"></script>
         <script src="data/Grid_1.js"></script>
         <script src="data/Regions_2.js"></script>
         <script src="data/Towns_3.js"></script>
         <script>
-        var crs = new L.Proj.CRS('EPSG:32632', '+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs', {
-            resolutions: [2800, 1400, 700, 350, 175, 84, 42, 21, 11.2, 5.6, 2.8, 1.4, 0.7, 0.35, 0.14, 0.07],
-        });
         var map = L.map('map', {
-            crs: crs,
-            continuousWorld: false,
-            worldCopyJump: false, 
-            zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[10.144893841468043,51.261108380196546],[10.237045660149157,51.41043770791932]]);
+            zoomControl:true, maxZoom:24, minZoom:1
+        }).fitBounds([[10.166787427582184,51.31215251139297],[10.212857369985942,51.38680264692548]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
-            map.setMaxBounds(map.getBounds());
         }
         var img_Entwicklungsring_0 = 'data/Entwicklungsring_0.png';
         var img_bounds_Entwicklungsring_0 = [[10.064645660416923,50.89490267645907],[10.382414585409418,51.40962338258156]];
@@ -111,7 +102,7 @@
         function pop_Regions_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2"><strong>Name</strong><br />' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -129,7 +120,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,158,255,0.0)',
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_Regions_2');
@@ -137,7 +128,7 @@
         map.getPane('pane_Regions_2').style['mix-blend-mode'] = 'normal';
         var layer_Regions_2 = new L.geoJson(json_Regions_2, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_Regions_2',
             layerName: 'layer_Regions_2',
             pane: 'pane_Regions_2',
