@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <style>
+        #map {
+            width: 1584px;
+            height: 813px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/proj4.js"></script>
+        <script src="js/proj4leaflet.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/Grid_1.js"></script>
+        <script src="data/Regions_2.js"></script>
+        <script src="data/Towns_3.js"></script>
+        <script>
+        var crs = new L.Proj.CRS('EPSG:32632', '+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs', {
+            resolutions: [2800, 1400, 700, 350, 175, 84, 42, 21, 11.2, 5.6, 2.8, 1.4, 0.7, 0.35, 0.14, 0.07],
+        });
+        var map = L.map('map', {
+            crs: crs,
+            continuousWorld: false,
+            worldCopyJump: false, 
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[10.144893841468043,51.261108380196546],[10.237045660149157,51.41043770791932]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            map.setMaxBounds(map.getBounds());
+        }
+        var img_Entwicklungsring_0 = 'data/Entwicklungsring_0.png';
+        var img_bounds_Entwicklungsring_0 = [[10.064645660416923,50.89490267645907],[10.382414585409418,51.40962338258156]];
+        var layer_Entwicklungsring_0 = new L.imageOverlay(img_Entwicklungsring_0, img_bounds_Entwicklungsring_0);
+        bounds_group.addLayer(layer_Entwicklungsring_0);
+        map.addLayer(layer_Entwicklungsring_0);
+        function pop_Grid_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['left'] !== null ? autolinker.link(feature.properties['left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['top'] !== null ? autolinker.link(feature.properties['top'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['right'] !== null ? autolinker.link(feature.properties['right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bottom'] !== null ? autolinker.link(feature.properties['bottom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Grid_1_0() {
+            return {
+                pane: 'pane_Grid_1',
+                opacity: 1,
+                color: 'rgba(136,136,136,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Grid_1');
+        map.getPane('pane_Grid_1').style.zIndex = 401;
+        map.getPane('pane_Grid_1').style['mix-blend-mode'] = 'normal';
+        var layer_Grid_1 = new L.geoJson(json_Grid_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Grid_1',
+            layerName: 'layer_Grid_1',
+            pane: 'pane_Grid_1',
+            onEachFeature: pop_Grid_1,
+            style: style_Grid_1_0,
+        });
+        bounds_group.addLayer(layer_Grid_1);
+        map.addLayer(layer_Grid_1);
+        function pop_Regions_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Name</strong><br />' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Regions_2_0() {
+            return {
+                pane: 'pane_Regions_2',
+                opacity: 1,
+                color: 'rgba(255,1,230,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,158,255,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Regions_2');
+        map.getPane('pane_Regions_2').style.zIndex = 402;
+        map.getPane('pane_Regions_2').style['mix-blend-mode'] = 'normal';
+        var layer_Regions_2 = new L.geoJson(json_Regions_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Regions_2',
+            layerName: 'layer_Regions_2',
+            pane: 'pane_Regions_2',
+            onEachFeature: pop_Regions_2,
+            style: style_Regions_2_0,
+        });
+        bounds_group.addLayer(layer_Regions_2);
+        map.addLayer(layer_Regions_2);
+        function pop_Towns_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Name</strong><br />' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Wealth</th>\
+                        <td>' + (feature.properties['Wealth'] !== null ? autolinker.link(feature.properties['Wealth'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Peoples</th>\
+                        <td>' + (feature.properties['Peoples'] !== null ? autolinker.link(feature.properties['Peoples'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+        function style_Towns_3_0(feature) {
+            var context = {
+                feature: feature,
+                variables: {}
+            };
+            // Start of if blocks and style check logic
+            if (exp_Towns_3rule0_eval_expression(context)) {
+                  return {
+                pane: 'pane_Towns_3',
+                shape: 'triangle',
+                radius: 5.6,
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: true,
+            };
+                }
+                else if (exp_Towns_3rule1_eval_expression(context)) {
+                  return {
+                pane: 'pane_Towns_3',
+                shape: 'square',
+                radius: 3.2,
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: true,
+            };
+                }
+                else if (exp_Towns_3rule2_eval_expression(context)) {
+                  return {
+                pane: 'pane_Towns_3',
+                radius: 4.8,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            };
+                }
+                else if (exp_Towns_3rule3_eval_expression(context)) {
+                  return {
+                pane: 'pane_Towns_3',
+                radius: 6.4,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            };
+                }
+            else {
+                return {fill: false, stroke: false};
+            }
+        }
+        map.createPane('pane_Towns_3');
+        map.getPane('pane_Towns_3').style.zIndex = 403;
+        map.getPane('pane_Towns_3').style['mix-blend-mode'] = 'normal';
+        var layer_Towns_3 = new L.geoJson(json_Towns_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Towns_3',
+            layerName: 'layer_Towns_3',
+            pane: 'pane_Towns_3',
+            onEachFeature: pop_Towns_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Towns_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Towns_3);
+        map.addLayer(layer_Towns_3);
+        setBounds();
+        var i = 0;
+        layer_Towns_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #000000; font-size: 10pt; font-family: \'Old English Text MT\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Towns_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        map.addControl(new L.Control.Search({
+            layer: layer_Towns_3,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Name'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        resetLabels([layer_Towns_3]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Towns_3]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Towns_3]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Towns_3]);
+        });
+        </script>
+    </body>
+</html>
